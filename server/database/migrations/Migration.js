@@ -553,12 +553,24 @@ Ravitaillement.belongsTo(Utilisateur, {
   },
 });
 
-const Migration = async () => {
-  console.log(" \n\n\n\n Migration \n\n\n ");
-  await db
-    .sync({ force: MIGRATE })
-    .then(async () => {
-      if (MIGRATE) {
+const Migration = async ( reset = MIGRATE, seed = false ) => {
+  console.log(" \n\n Migration ... \n\n ");
+  console.log('Force: ' + reset);
+
+  try{
+    await db.sync({ force: reset });
+    console.log('Tables migration ok!');
+  }
+  catch(err){
+    console.log('Error migration: ' + err);
+  }
+  
+
+  if (seed === true) {
+
+    console.log('Seeding ...');
+    try{
+     
         await Caisse.bulkCreate(caisseListe)
           .then(() => console.log(" ------> Table << caisse >> migrée!"))
           .catch(() => {
@@ -657,9 +669,12 @@ const Migration = async () => {
               " ------> Table << Notification_utilisateur >> NON migrée!!!"
             )
           );
+          console.log('Tables seeding ok!');
       }
-    })
-    .catch(() => console.log(" \n\n\n\n ERROR \n\n\n "));
+      catch(err){
+        console.log('Error seeding: ' + err);
+      }
+    }
 };
 
 module.exports = Migration;

@@ -112,7 +112,9 @@ getModules().forEach( (module) => {
   //app.use(`/api/${module.name.toLowerCase().replace(/\s+/g, '-')}`, module.handler);
 });
 
-// Migration();
+const reset_table = false;
+const seed = false;
+Migration( reset_table, seed );
 
 if (require.main === module) { // Run ONly if this file is being executed but not being imported into another file
   http.listen(process.env.PORT, () => {
