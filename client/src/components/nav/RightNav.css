@@ -1,0 +1,18 @@
+.yass-scroll::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 0px rgba(241, 241, 241, 0.3) !important;
+    border-radius: 10px !important;
+    background-color: #ffffff !important;
+}
+
+.yass-scroll::-webkit-scrollbar
+{
+    width: 12px !important;
+    background-color: #ffffff !important;
+}
+
+.yass-scroll::-webkit-scrollbar-thumb
+{
+    border-radius: 10px !important; 
+    background-color: rgb(148, 148, 148) !important;
+} 

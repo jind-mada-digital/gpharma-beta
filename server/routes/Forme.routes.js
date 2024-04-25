@@ -1,0 +1,14 @@
+const getAll = require("../controllers/Forme.controller.js").getAll;
+const getSpecific = require("../controllers/Forme.controller.js").getSpecific;
+const createOne = require("../controllers/Forme.controller.js").createOne;
+const updateOne = require("../controllers/Forme.controller.js").updateOne;
+const deleteOne = require("../controllers/Forme.controller.js").deleteOne;
+const express = require("express");
+const Autentification = require("../middlewares/Authentification.middleware.js");
+const FormeRouter = express.Router();
+FormeRouter.get("/Forme/", Autentification, getAll);
+FormeRouter.get("/Forme/:id", Autentification, getSpecific);
+FormeRouter.post("/Forme/", Autentification, createOne);
+FormeRouter.put("/Forme/:id", Autentification, updateOne);
+FormeRouter.delete("/Forme/:id", Autentification, deleteOne);
+module.exports = FormeRouter;

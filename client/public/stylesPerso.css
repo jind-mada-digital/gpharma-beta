@@ -1,0 +1,6 @@
+.badge-yass {
+  height: 41px !important ;
+  @media  all and (max-width: 1400px) {
+    height: 56px !important;
+  }
+}

@@ -1,0 +1,14 @@
+const getAll = require("../controllers/Famille.controller.js").getAll;
+const getSpecific = require("../controllers/Famille.controller.js").getSpecific;
+const createOne = require("../controllers/Famille.controller.js").createOne;
+const updateOne = require("../controllers/Famille.controller.js").updateOne;
+const deleteOne = require("../controllers/Famille.controller.js").deleteOne;
+const express = require("express");
+const Autentification = require("../middlewares/Authentification.middleware.js");
+const FamilleRouter = express.Router();
+FamilleRouter.get("/Famille/", Autentification, getAll);
+FamilleRouter.get("/Famille/:id", Autentification, getSpecific);
+FamilleRouter.post("/Famille/", Autentification, createOne);
+FamilleRouter.put("/Famille/:id", Autentification, updateOne);
+FamilleRouter.delete("/Famille/:id", Autentification, deleteOne);
+module.exports = FamilleRouter;

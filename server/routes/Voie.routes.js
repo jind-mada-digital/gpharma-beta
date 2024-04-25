@@ -1,0 +1,14 @@
+const getAll = require("../controllers/Voie.controller.js").getAll;
+const getSpecific = require("../controllers/Voie.controller.js").getSpecific;
+const createOne = require("../controllers/Voie.controller.js").createOne;
+const updateOne = require("../controllers/Voie.controller.js").updateOne;
+const deleteOne = require("../controllers/Voie.controller.js").deleteOne;
+const express = require("express");
+const Autentification = require("../middlewares/Authentification.middleware.js");
+const VoieRouter = express.Router();
+VoieRouter.get("/Voie/", Autentification, getAll);
+VoieRouter.get("/Voie/:id", Autentification, getSpecific);
+VoieRouter.post("/Voie/", Autentification, createOne);
+VoieRouter.put("/Voie/:id", Autentification, updateOne);
+VoieRouter.delete("/Voie/:id", Autentification, deleteOne);
+module.exports = VoieRouter;

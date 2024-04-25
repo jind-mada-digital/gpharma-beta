@@ -1,0 +1,48 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\"  &&  exit 1",
+    "gen::model": " echo import ^{ DataTypes ^} from 'sequelize'; import db from '../../config/Database.js'^;  const %npm_config_name% ^= db.define^( '%npm_config_name%',   ^{   nom_%npm_config_name%: ^{ type: DataTypes.CHAR^(255^), allowNull: false, unique: true ^} ,   quantite: ^{ type: DataTypes.DOUBLE^(10^), allowNull: false,  ^} ,   data_%npm_config_name%: ^{ type: DataTypes.DATE, allowNull: false,  ^} ,  status: ^{  type: DataTypes.BOOLEAN,  defaultValue: '1',  ^} ,   ^} ,    ^{  paranoid: true,  freezeTableName: true,  ^}   ^)^;  export default %npm_config_name%^; > database/models/%npm_config_name%.model.js | code database/models/%npm_config_name%.model.js && cd database/migrations && (echo import %npm_config_name% from \"../models/%npm_config_name%.model.js\";) > temp.txt & type Migration.js >> temp.txt & move /y temp.txt Migration.js >nul && cd ../../",
+    "gen::ctrl": " echo import %npm_config_name% from '../database/models/%npm_config_name%.model.js'^;const getAll ^= async (req, res) ^=ESCAPE    try ^{    const response ^= await %npm_config_name%.findAll()^;    res.json(response)^;  ^} catch (error) ^{    console.log(error.message)^;  ^}^}^;const getSpecific ^= async (req, res) ^=ESCAPE  try ^{    const response ^= await %npm_config_name%.findOne(^{ where: ^{        id: req.params.id,      ^},    ^})^;    res.json(response)^;  ^} catch (error) ^{    console.log(error.message)^;  ^}^}^;const createOne ^= (req, res) ^=ESCAPE^}^;const updateOne ^= async (req, res) ^=ESCAPE^}^;const deleteOne ^= async (req, res) ^=ESCAPE        const user ^= %npm_config_name%.findOne(^{        where: ^{      id: req.params.id,    ^},  ^})^;  if (!user) return res.status(404).json(^{ message: '%npm_config_name% introvable!' ^})^;  try ^{    await %npm_config_name%.destroy(^{      where: ^{        id: req.params.id,      ^},    ^})^;    return res.status(200).json(^{ message: '%npm_config_name% supprimé avec succès!' ^})^;  ^} catch (error) ^{    console.log(error)^;  ^}^}^;export ^{ getAll, getSpecific, createOne, updateOne, deleteOne ^}^; > controllers/%npm_config_name%.controller.js | code controllers/%npm_config_name%.controller.js",
+    "gen::route": " echo import express from 'express';import {  getAll,  getSpecific,  createOne,  updateOne,  deleteOne,} from '../controllers/%npm_config_name%.controller.js';import Autentification from '../middlewares/Authentification.middleware.js';const %npm_config_name%Router = express.Router();%npm_config_name%Router.get('/%npm_config_name%/', Autentification, getAll);%npm_config_name%Router.get('/%npm_config_name%/:id', Autentification, getSpecific);%npm_config_name%Router.post('/%npm_config_name%/', Autentification, createOne);%npm_config_name%Router.put('/%npm_config_name%/:id', Autentification, updateOne);%npm_config_name%Router.delete('/%npm_config_name%/:id', Autentification, deleteOne); export default %npm_config_name%Router;    > routes/%npm_config_name%.routes.js | code routes/%npm_config_name%.routes.js",
+    "start": "nodemon -r dotenv/config server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^16.0.2",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "express-ejs-layouts": "^2.5.1",
+    "express-fileupload": "^1.4.0",
+    "express-list-endpoints": "^6.0.0",
+    "greenlock-express": "^4.0.3",
+    "mariadb": "^3.0.1",
+    "mysql2": "^2.3.3",
+    "node-cron": "^3.0.2",
+    "node-localstorage": "^2.2.1",
+    "nodemailer": "^6.8.0",
+    "nodemon": "^2.0.20",
+    "pdf-creator-node": "^2.3.5",
+    "react-confirm-alert": "^3.0.6",
+    "sequelize": "^6.23.1",
+    "sessionstorage-for-nodejs": "^1.0.2",
+    "socket.io": "^4.5.4",
+    "xlsx": "^0.18.5",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.5.0",
+    "chai": "^4.3.7",
+    "jest": "^29.5.0",
+    "supertest": "^6.3.3"
+  }
+}

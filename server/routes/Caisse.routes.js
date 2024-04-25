@@ -1,0 +1,14 @@
+const getAll = require("../controllers/Caisse.controller.js").getAll;
+const getSpecific = require("../controllers/Caisse.controller.js").getSpecific;
+const createOne = require("../controllers/Caisse.controller.js").createOne;
+const updateOne = require("../controllers/Caisse.controller.js").updateOne;
+const deleteOne = require("../controllers/Caisse.controller.js").deleteOne;
+const express = require("express");
+const Autentification = require("../middlewares/Authentification.middleware.js");
+const CaisseRouter = express.Router();
+CaisseRouter.get("/Caisse/", Autentification, getAll);
+CaisseRouter.get("/Caisse/:id", Autentification, getSpecific);
+CaisseRouter.post("/caisse", Autentification, createOne);
+CaisseRouter.put("/Caisse/:id", Autentification, updateOne);
+CaisseRouter.delete("/Caisse/:id", Autentification, deleteOne);
+module.exports = CaisseRouter;

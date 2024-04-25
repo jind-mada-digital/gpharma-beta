@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Facture</title>
+  </head>
+  <body>
+    <div
+      style="
+        /* max-width: 800px; */
+        margin: auto;
+        /* padding: 30px; */
+        /* border: 1px solid #eee;
+        box-shadow: 0 0 0 15 rgba(0, 0, 0, 0.15); */
+        font-size: 12px;
+        font-family: Arial, sans-serif;
+      "
+    >
+      <table
+        cellpadding="0"
+        cellspacing="0"
+        style="width: 100%; line-height: inherit; text-align: left"
+      >
+        <tr>
+          <td style="vertical-align: top; padding: 5px">
+            <table
+              style="
+                width: 100%;
+                line-height: inherit;
+                text-align: left;
+                vertical-align: top;
+                padding: 5px;
+              "
+            >
+              <tr>
+                <td style="vertical-align: top; padding: 5px">
+                  <img
+                    class="img-fluid"
+                    style="height: 80px"
+                    src="http://localhost:5000/images/entreprise/{{pharmacie.logo}}"
+                    alt="image"
+                  />
+                </td>
+                <td
+                  style="text-align: right; vertical-align: top; padding: 5px"
+                >
+                  <h2>Facture {{vente.id}}</h2>
+                  <span>Date facturation : {{vente.date_facture}}</span><br />
+                  <span>Date de vente : {{vente.date_vente}} </span><br />
+                  <span>Code client : {{vente.client.id}}</span><br />
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; padding: 5px">
+            <table
+              style="
+                width: 100%;
+                line-height: inherit;
+                text-align: left;
+                vertical-align: top;
+                padding: 5px;
+              "
+            >
+              <tr style="font-size: 10px">
+                <td style="vertical-align: top; padding: 5px">
+                  <span>Emétteur</span>
+                </td>
+                <td style="vertical-align: top; padding: 5px; height: 100%">
+                  <span>Adressé à</span>
+                </td>
+              </tr>
+
+              <tr style="font-size: 10px">
+                <td
+                  style="
+                    vertical-align: top;
+                    padding: 5px;
+                    padding: 15px;
+                    background-color: #ddd;
+                    margin-left: 20px;
+                  "
+                >
+                  <div>
+                    <b>{{pharmacie.nom_entreprise}}</b><br />
+                    <span>{{pharmacie.adresse}}</span><br />
+                    <span>Stat: {{pharmacie.stat}}</span><br />
+                    <span>Nif: {{pharmacie.nif}}</span><br /><br />
+                    <!-- <span>{{pharmacie.nom_entreprise}}</span><br /> -->
+                    <span>Tél.: {{pharmacie.contact}}</span><br />
+                    <span>Email: {{pharmacie.email}}</span><br />
+                    <span>Web: {{pharmacie.website}}</span>
+                  </div>
+                </td>
+                <td
+                  style="
+                    vertical-align: top;
+                    padding: 5px;
+                    height: 100%;
+                    border: 1px solid #444;
+                    padding: 15px;
+                  "
+                >
+                  <div>
+                    <b
+                      >Client :
+                      {{vente.client.nom_prenom}}(<span>{{vente.client.adresse}}</span>)</b
+                    ><br /> 
+                    <span>Société : {{vente.societe.nom_societe}}</span><br /> 
+                    <span
+                      >Ordonnance : Doc. {{vente.ordonnance.nom_docteur}} / Hop.
+                      {{vente.ordonnance.hopital}}</span
+                    ><br /> 
+                    <span>Guichet : {{vente.guichet.nom_guichet}}</span><br />
+                    <span>Caisse : {{vente.caisse.nom_caisse}}</span><br />
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr style="font-size: 10px">
+          <td>
+            <div style="padding: 15px">
+              <table
+                style="
+                  border-collapse: collapse;
+                  border: 1px solid #444;
+                  width: 100%;
+                  font-family: 'Times New Roman', Times, serif;
+                "
+              >
+                <thead>
+                  <tr style="border: 1px solid #444">
+                    <th
+                      width="50%"
+                      style="padding: 2.5px; border: 1px solid #444"
+                    >
+                      Désignation
+                    </th>
+                    <!-- <th
+                      width="10%"
+                      style="padding: 2.5px; border: 1px solid #444"
+                    >
+                      TVA
+                    </th> -->
+                    <th
+                      width="16%"
+                      style="
+                        padding: 2.5px;
+                        border: 1px solid #444;
+                        text-align: center;
+                      "
+                    >
+                      P.U HT
+                    </th>
+                    <th
+                      width="8%"
+                      style="
+                        padding: 2.5px;
+                        border: 1px solid #444;
+                        text-align: center;
+                      "
+                    >
+                      Qté
+                    </th>
+                    <th
+                      width="10%"
+                      style="
+                        padding: 2.5px;
+                        border: 1px solid #444;
+                        text-align: center;
+                      "
+                    >
+                      Réduc.
+                    </th>
+                    <th
+                      width="16%"
+                      style="
+                        padding: 2.5px;
+                        border: 1px solid #444;
+                        text-align: center;
+                      "
+                    >
+                      Total HT
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each vente_detail}}
+                  <tr>
+                    <td style="padding: 2.5px; border: 1px solid #444">
+                      {{this.produit.nom_produit}}
+                    </td>
+                    <!-- <td style="padding: 2.5px; border: 1px solid #444">
+                      {{this.tva}}
+                    </td> -->
+                    <td
+                      style="
+                        padding: 2.5px;
+                        border: 1px solid #444;
+                        text-align: right;
+                      "
+                    >
+                      {{this.prix_vente}}
+                    </td>
+                    <td
+                      style="
+                        padding: 2.5px;
+                        border: 1px solid #444;
+                        text-align: right;
+                      "
+                    >
+                      {{this.quantite_vendue}}
+                    </td>
+                    <td
+                      style="
+                        padding: 2.5px;
+                        border: 1px solid #444;
+                        text-align: right;
+                      "
+                    >
+                      {{this.societe_prise_en_charge_f}}
+                    </td>
+                    <td
+                      style="
+                        padding: 2.5px;
+                        border: 1px solid #444;
+                        text-align: right;
+                      "
+                    >
+                      {{this.montant_vente}}
+                    </td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </td>
+        </tr>
+        <tr style="font-size: 10px; margin-top: -10px">
+          <td>
+            <div style="padding: 15px">
+              <table style="width: 100%">
+                <tr>
+                  <td>
+                    <div>
+                      <p>
+                        <b>Conditions de réglement : </b
+                        ><span>A récéption</span> <br /><span
+                          ><b>Payement method : </b><span>Espèce</span></span
+                        >
+                      </p>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <!-- <p><b>Total HT : </b> <span>{{vente.montant_total}}</span></p> -->
+                      <p>
+                        <b>Total TTC : </b
+                        ><span>{{vente.montant_total}} Ar</span><br />
+                        <span
+                          ><b>{{vente.montant_total_en_lettre}}</b> Ariary</span
+                        >
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>
